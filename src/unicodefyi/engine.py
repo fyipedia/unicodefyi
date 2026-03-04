@@ -17,7 +17,7 @@ from urllib.parse import quote
 
 # Try fontTools for block/script (optional dependency)
 try:
-    from fontTools.unicodedata import block as ft_block
+    from fontTools.unicodedata import block as ft_block  # type: ignore[import-untyped]
     from fontTools.unicodedata import script as ft_script
 
     _HAS_FONTTOOLS = True

@@ -4,15 +4,19 @@
 [![Python](https://img.shields.io/pypi/pyversions/unicodefyi)](https://pypi.org/project/unicodefyi/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Pure Python Unicode character toolkit. Compute 17 encoding representations and full Unicode properties for any character. Includes character search across 20 Unicode ranges, 90 HTML entity mappings, and 48 script-to-slug conversions.
+Pure Python Unicode character toolkit for developers. Compute [17 encoding representations](https://unicodefyi.com/developers/) (Unicode, HTML, CSS, JavaScript, Python, Java, Go, Ruby, Rust, C/C++, URL, UTF-8, UTF-16, UTF-32), look up full [Unicode properties](https://unicodefyi.com/blocks/) (name, category, block, script), resolve [92 HTML entities](https://unicodefyi.com/search/), and [search characters by name](https://unicodefyi.com/search/) -- all with zero dependencies.
 
-> Look up any character at [unicodefyi.com](https://unicodefyi.com/)
+> **Try the interactive tools at [unicodefyi.com](https://unicodefyi.com/)** -- [Unicode search](https://unicodefyi.com/search/), [Unicode blocks](https://unicodefyi.com/blocks/), [Unicode scripts](https://unicodefyi.com/scripts/), and [character collections](https://unicodefyi.com/collections/).
 
 ## Install
 
 ```bash
-pip install unicodefyi              # Core (zero deps)
-pip install "unicodefyi[full]"      # + fonttools for Unicode block/script
+pip install unicodefyi                 # Core engine (zero deps)
+pip install "unicodefyi[full]"         # + Block/script info (fonttools)
+pip install "unicodefyi[cli]"          # + Command-line interface
+pip install "unicodefyi[mcp]"          # + MCP server for AI assistants
+pip install "unicodefyi[api]"          # + HTTP client for unicodefyi.com API
+pip install "unicodefyi[all]"          # Everything
 ```
 
 ## Quick Start
@@ -20,103 +24,202 @@ pip install "unicodefyi[full]"      # + fonttools for Unicode block/script
 ```python
 from unicodefyi import get_encodings, get_char_info, search
 
-# Encode any character (17 formats)
-enc = get_encodings("✓")
+# Compute 17 encoding representations for any character
+enc = get_encodings("\u2713")
 print(enc.unicode)        # U+2713
 print(enc.html_entity)    # &check;
-print(enc.css)            # \2713
-print(enc.go)             # \u2713
+print(enc.javascript)     # \u{2713}
 print(enc.rust)           # \u{2713}
 print(enc.utf8_bytes)     # e2 9c 93
-print(enc.utf32be_bytes)  # 00 00 27 13
 
-# Full Unicode properties (requires fonttools for block/script)
+# Full Unicode properties (block/script require fonttools)
 info = get_char_info(0x2713)
 print(info.name)          # CHECK MARK
 print(info.category_name) # Other Symbol
 print(info.block)         # Dingbats
-print(info.script_slug)   # common
+print(info.script)        # Zyyy
 
 # Search characters by name
 results = search("arrow")
 for r in results[:5]:
-    print(f"U+{r.codepoint:04X} {r.character} {r.name}")
+    print(r.character, r.name)
 ```
-
-## API Reference
-
-### Core Functions
-
-| Function | Description |
-|----------|-------------|
-| `get_encodings(char) -> EncodingInfo` | 17 encoding representations |
-| `get_char_info(codepoint) -> CharInfo \| None` | Full Unicode properties + encodings |
-| `search(query, limit=50) -> list[CharInfo]` | Search by character name |
-| `get_category_name(code) -> str` | Category code to human name |
-| `lookup_html_entity(entity) -> str \| None` | Entity string to character |
-
-### Data Types
-
-- **`EncodingInfo`** — 17-field NamedTuple: unicode, decimal, html_decimal, html_hex, html_entity, css, javascript, python, java, go, ruby, rust, c_cpp, url_encoded, utf8_bytes, utf16be_bytes, utf32be_bytes
-- **`CharInfo`** — 14-field NamedTuple: codepoint, character, name, category, category_name, block, block_slug, script, script_slug, bidirectional, combining, mirrored, decomposition, encodings
-
-### Constants
-
-| Constant | Count | Description |
-|----------|-------|-------------|
-| `GENERAL_CATEGORY_NAMES` | 30 | Full UAX #44 category names |
-| `SCRIPT_CODE_TO_SLUG` | 48 | ISO 15924 script codes to SEO-friendly slugs |
-| `HTML_ENTITIES` | 90 | Codepoint-to-entity mappings |
-| `HTML_ENTITY_TO_CHAR` | 90 | Entity-to-character reverse mappings |
 
 ## 17 Encoding Formats
 
-| Format | Example (`✓`) | Language |
-|--------|---------------|----------|
-| Unicode | `U+2713` | Standard |
-| Decimal | `10003` | — |
-| HTML decimal | `&#10003;` | HTML |
-| HTML hex | `&#x2713;` | HTML |
-| HTML entity | `&check;` | HTML |
-| CSS | `\2713` | CSS |
-| JavaScript | `\u2713` | JS |
-| Python | `\u2713` | Python |
-| Java | `\u2713` | Java |
-| Go | `\u2713` | Go |
-| Ruby | `\u{2713}` | Ruby |
-| Rust | `\u{2713}` | Rust |
-| C/C++ | `\u2713` | C/C++ |
-| URL-encoded | `%E2%9C%93` | URL |
-| UTF-8 bytes | `e2 9c 93` | Binary |
-| UTF-16 BE | `27 13` | Binary |
-| UTF-32 BE | `00 00 27 13` | Binary |
+```python
+from unicodefyi import get_encodings
+
+enc = get_encodings("\u00a9")  # Copyright sign
+print(enc.unicode)         # U+00A9
+print(enc.decimal)         # 169
+print(enc.html_decimal)    # &#169;
+print(enc.html_hex)        # &#xA9;
+print(enc.html_entity)     # &copy;
+print(enc.css)             # \00A9
+print(enc.javascript)      # \u{A9}
+print(enc.python)          # \u00a9
+print(enc.java)            # \u00A9
+print(enc.go)              # \u00A9
+print(enc.ruby)            # \u{A9}
+print(enc.rust)            # \u{A9}
+print(enc.c_cpp)           # \u00a9
+print(enc.url_encoded)     # %C2%A9
+print(enc.utf8_bytes)      # c2 a9
+print(enc.utf16be_bytes)   # 00 a9
+print(enc.utf32be_bytes)   # 00 00 00 a9
+```
+
+## HTML Entity Lookup
+
+```python
+from unicodefyi import lookup_html_entity, HTML_ENTITIES
+
+# Reverse lookup: entity name to character
+char = lookup_html_entity("&hearts;")
+print(char)       # (U+2665)
+print(ord(char))  # 9829
+
+# Forward lookup: codepoint to entity
+entity = HTML_ENTITIES.get(0x20AC)
+print(entity)     # &euro;
+
+# 92 HTML5 named entities included
+print(len(HTML_ENTITIES))  # 92
+```
+
+## Character Search
+
+```python
+from unicodefyi import search
+
+# Search by name substring (case-insensitive)
+results = search("check mark")
+for r in results:
+    print(f"{r.character}  U+{r.codepoint:04X}  {r.name}")
+
+# Limit results
+arrows = search("arrow", limit=10)
+```
+
+## Command-Line Interface
+
+```bash
+pip install "unicodefyi[cli]"
+
+unicodefyi info U+2713                 # Character info (CHECK MARK)
+unicodefyi info A                      # Character info (LATIN CAPITAL LETTER A)
+unicodefyi encode U+2713               # All 17 encodings
+unicodefyi search "check mark"         # Search by name
+unicodefyi entity "&amp;"              # HTML entity reverse lookup
+```
+
+## MCP Server (Claude, Cursor, Windsurf)
+
+Add Unicode tools to any AI assistant that supports [Model Context Protocol](https://modelcontextprotocol.io/).
+
+```bash
+pip install "unicodefyi[mcp]"
+```
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+    "mcpServers": {
+        "unicodefyi": {
+            "command": "python",
+            "args": ["-m", "unicodefyi.mcp_server"]
+        }
+    }
+}
+```
+
+**Available tools**: `char_info`, `char_encode`, `unicode_search`, `html_entity_lookup`
+
+## REST API Client
+
+```bash
+pip install "unicodefyi[api]"
+```
+
+```python
+from unicodefyi.api import UnicodeFYI
+
+with UnicodeFYI() as api:
+    info = api.char("2713")                # GET /api/char/2713/
+    enc = api.encodings("2713")            # GET /api/char/2713/encodings/
+    results = api.search("check mark")     # GET /api/search/?q=check+mark
+    blocks = api.blocks()                  # GET /api/blocks/
+    block = api.block("arrows")            # GET /api/block/arrows/
+    scripts = api.scripts()                # GET /api/scripts/
+    confusables = api.confusables("A")     # GET /api/confusables/?char=A
+    random_char = api.random()             # GET /api/random/
+```
+
+Full [API documentation](https://unicodefyi.com/developers/) with OpenAPI spec at [unicodefyi.com/api/openapi.json](https://unicodefyi.com/api/openapi.json).
+
+## API Reference
+
+### Encoding & Properties
+
+| Function | Description |
+|----------|-------------|
+| `get_encodings(char) -> EncodingInfo` | 17 encoding representations for any character |
+| `get_char_info(codepoint) -> CharInfo` | Full Unicode properties + encodings |
+| `get_category_name(code) -> str` | Category code to full name (e.g. "Sm" to "Math Symbol") |
+| `lookup_html_entity(entity) -> str` | HTML entity to character (e.g. "&amp;" to "&") |
+| `search(query, limit) -> list[CharInfo]` | Search characters by name substring |
+
+### Data Types
+
+| Type | Fields |
+|------|--------|
+| `EncodingInfo` | unicode, decimal, html_decimal, html_hex, html_entity, css, javascript, python, java, go, ruby, rust, c_cpp, url_encoded, utf8_bytes, utf16be_bytes, utf32be_bytes |
+| `CharInfo` | codepoint, character, name, category, category_name, block, block_slug, script, script_slug, bidirectional, combining, mirrored, decomposition, encodings |
+
+### Constants
+
+| Constant | Description |
+|----------|-------------|
+| `GENERAL_CATEGORY_NAMES` | 30 Unicode general categories |
+| `SCRIPT_CODE_TO_SLUG` | 48 script code to URL slug mappings |
+| `HTML_ENTITIES` | 92 codepoint to HTML entity mappings |
+| `HTML_ENTITY_TO_CHAR` | 92 HTML entity to character reverse mappings |
 
 ## Features
 
-- **17 encoding types**: The most comprehensive encoding toolkit — covers 10+ programming languages
-- **Unicode properties**: name, category, block, script, bidirectional, combining, mirrored, decomposition
-- **Character search**: Scan 20 Unicode ranges (Latin, Greek, Cyrillic, CJK, symbols, etc.)
-- **90 HTML entities**: Common entities with bidirectional lookup
-- **48 script mappings**: ISO 15924 script codes to SEO-friendly slugs
-- **30 general categories**: Full UAX #44 category names
-- **Zero required deps**: Core uses only stdlib (`unicodedata`, `urllib.parse`)
-- **Optional fonttools**: Install `unicodefyi[full]` for block and script info
+- **17 encoding formats**: Unicode, HTML (decimal/hex/entity), CSS, JavaScript, Python, Java, Go, Ruby, Rust, C/C++, URL, UTF-8, UTF-16, UTF-32
+- **Full Unicode properties**: name, category, block, script, bidirectional, combining, mirrored, decomposition
+- **92 HTML entities**: forward and reverse lookup
+- **Character search**: name substring search across common Unicode ranges
+- **CLI**: Rich terminal output with formatted tables
+- **MCP server**: 4 tools for AI assistants (Claude, Cursor, Windsurf)
+- **REST API client**: httpx-based client for [unicodefyi.com API](https://unicodefyi.com/developers/)
+- **Zero dependencies**: Core engine uses only `unicodedata` from stdlib
 - **Type-safe**: Full type annotations, `py.typed` marker (PEP 561)
+- **Fast**: All computations under 1ms
 
-## Related Packages
+## FYIPedia Developer Tools
+
+Part of the [FYIPedia](https://unicodefyi.com/) open-source developer tools ecosystem:
 
 | Package | Description |
 |---------|-------------|
-| [symbolfyi](https://github.com/fyipedia/symbolfyi) | Lighter symbol toolkit with 11 encodings |
-| [colorfyi](https://github.com/fyipedia/colorfyi) | Color conversion, contrast, harmonies, shades |
-| [emojifyi](https://github.com/fyipedia/emojifyi) | Emoji encoding & metadata for 3,781 emojis |
-| [fontfyi](https://github.com/fyipedia/fontfyi) | Google Fonts metadata, CSS helpers, font pairings |
+| [colorfyi](https://colorfyi.com/) | [Hex to RGB converter](https://colorfyi.com/tools/converter/), [WCAG contrast checker](https://colorfyi.com/tools/contrast-checker/), [color harmonies](https://colorfyi.com/tools/palette-generator/) |
+| [emojifyi](https://emojifyi.com/) | [Emoji encoding](https://emojifyi.com/developers/) & metadata for 3,781 Unicode emojis |
+| [symbolfyi](https://symbolfyi.com/) | [Symbol encoder](https://symbolfyi.com/developers/) -- 11 encoding formats for any character |
+| **unicodefyi** | [Unicode character lookup](https://unicodefyi.com/developers/) -- 17 encodings + character search |
+| [fontfyi](https://fontfyi.com/) | [Google Fonts explorer](https://fontfyi.com/developers/) -- metadata, CSS helpers, font pairings |
 
 ## Links
 
-- [Unicode Character Browser](https://unicodefyi.com/) — Look up any character online
-- [API Documentation](https://unicodefyi.com/developers/) — REST API with free access
-- [Source Code](https://github.com/fyipedia/unicodefyi)
+- [Unicode Character Search](https://unicodefyi.com/search/) -- Search any Unicode character
+- [Unicode Blocks](https://unicodefyi.com/blocks/) -- Browse all Unicode blocks
+- [Unicode Scripts](https://unicodefyi.com/scripts/) -- Browse all Unicode scripts
+- [Character Collections](https://unicodefyi.com/collections/) -- Curated character sets
+- [REST API Documentation](https://unicodefyi.com/developers/) -- Free API with OpenAPI spec
+- [Source Code](https://github.com/fyipedia/unicodefyi) -- MIT licensed
 
 ## License
 
