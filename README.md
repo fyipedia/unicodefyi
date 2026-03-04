@@ -202,7 +202,7 @@ Full [API documentation](https://unicodefyi.com/developers/) with OpenAPI spec a
 
 ## FYIPedia Developer Tools
 
-Part of the [FYIPedia](https://unicodefyi.com/) open-source developer tools ecosystem:
+Part of the [FYIPedia](https://github.com/fyipedia) open-source developer tools ecosystem:
 
 | Package | Description |
 |---------|-------------|
