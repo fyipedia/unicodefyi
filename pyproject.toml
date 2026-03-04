@@ -55,7 +55,7 @@ unicodefyi = "unicodefyi.mcp_server:mcp"
 [project.urls]
 Homepage = "https://unicodefyi.com"
 "Unicode Search" = "https://unicodefyi.com/search/"
-"Unicode Blocks" = "https://unicodefyi.com/blocks/"
+"Unicode Blocks" = "https://unicodefyi.com/block/"
 Documentation = "https://unicodefyi.com/developers/"
 Repository = "https://github.com/fyipedia/unicodefyi"
 Issues = "https://github.com/fyipedia/unicodefyi/issues"

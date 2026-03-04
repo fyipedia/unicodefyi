@@ -48,6 +48,6 @@ Add to your `claude_desktop_config.json`:
 ## Links
 
 - [Unicode Search](https://unicodefyi.com/search/)
-- [Unicode Blocks](https://unicodefyi.com/blocks/)
+- [Unicode Blocks](https://unicodefyi.com/block/)
 - [API Documentation](https://unicodefyi.com/developers/)
 - [PyPI Package](https://pypi.org/project/unicodefyi/)

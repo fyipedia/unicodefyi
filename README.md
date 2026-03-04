@@ -4,9 +4,9 @@
 [![Python](https://img.shields.io/pypi/pyversions/unicodefyi)](https://pypi.org/project/unicodefyi/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Pure Python Unicode character toolkit for developers. Compute [17 encoding representations](https://unicodefyi.com/developers/) (Unicode, HTML, CSS, JavaScript, Python, Java, Go, Ruby, Rust, C/C++, URL, UTF-8, UTF-16, UTF-32), look up full [Unicode properties](https://unicodefyi.com/blocks/) (name, category, block, script), resolve [92 HTML entities](https://unicodefyi.com/search/), and [search characters by name](https://unicodefyi.com/search/) -- all with zero dependencies.
+Pure Python Unicode character toolkit for developers. Compute [17 encoding representations](https://unicodefyi.com/developers/) (Unicode, HTML, CSS, JavaScript, Python, Java, Go, Ruby, Rust, C/C++, URL, UTF-8, UTF-16, UTF-32), look up full [Unicode properties](https://unicodefyi.com/block/) (name, category, block, script), resolve [92 HTML entities](https://unicodefyi.com/search/), and [search characters by name](https://unicodefyi.com/search/) -- all with zero dependencies.
 
-> **Try the interactive tools at [unicodefyi.com](https://unicodefyi.com/)** -- [Unicode search](https://unicodefyi.com/search/), [Unicode blocks](https://unicodefyi.com/blocks/), [Unicode scripts](https://unicodefyi.com/scripts/), and [character collections](https://unicodefyi.com/collections/).
+> **Try the interactive tools at [unicodefyi.com](https://unicodefyi.com/)** -- [Unicode search](https://unicodefyi.com/search/), [Unicode blocks](https://unicodefyi.com/block/), [Unicode scripts](https://unicodefyi.com/script/), and [character collections](https://unicodefyi.com/collection/).
 
 ## Install
 
@@ -220,9 +220,9 @@ Part of the [FYIPedia](https://unicodefyi.com/) open-source developer tools ecos
 ## Links
 
 - [Unicode Character Search](https://unicodefyi.com/search/) -- Search any Unicode character
-- [Unicode Blocks](https://unicodefyi.com/blocks/) -- Browse all Unicode blocks
-- [Unicode Scripts](https://unicodefyi.com/scripts/) -- Browse all Unicode scripts
-- [Character Collections](https://unicodefyi.com/collections/) -- Curated character sets
+- [Unicode Blocks](https://unicodefyi.com/block/) -- Browse all Unicode blocks
+- [Unicode Scripts](https://unicodefyi.com/script/) -- Browse all Unicode scripts
+- [Character Collections](https://unicodefyi.com/collection/) -- Curated character sets
 - [REST API Documentation](https://unicodefyi.com/developers/) -- Free API with OpenAPI spec
 - [Source Code](https://github.com/fyipedia/unicodefyi) -- MIT licensed
 
