@@ -45,6 +45,10 @@ Add to your `claude_desktop_config.json`:
 - Getting HTML/CSS/URL-encoded representations
 - Resolving HTML entity names to characters
 
+## Demo
+
+![UnicodeFYI CLI Demo](https://raw.githubusercontent.com/fyipedia/unicodefyi/main/demo.gif)
+
 ## Links
 
 - [Unicode Search](https://unicodefyi.com/search/)
