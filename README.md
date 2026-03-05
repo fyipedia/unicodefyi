@@ -16,7 +16,11 @@ Pure Python Unicode character toolkit for developers. Compute [17 encoding repre
 
 - [Install](#install)
 - [Quick Start](#quick-start)
-- [17 Encoding Formats](#17-encoding-formats)
+- [What You Can Do](#what-you-can-do)
+  - [Character Lookup](#character-lookup)
+  - [17 Encoding Formats](#17-encoding-formats)
+  - [HTML Entities](#html-entities)
+- [17 Encoding Formats](#17-encoding-formats-1)
 - [HTML Entity Lookup](#html-entity-lookup)
 - [Character Search](#character-search)
 - [Command-Line Interface](#command-line-interface)
@@ -67,6 +71,94 @@ results = search("arrow")
 for r in results[:5]:
     print(r.character, r.name)
 ```
+
+## What You Can Do
+
+### Character Lookup
+
+The Unicode Standard version 16.0 defines over 149,000 characters across 168 blocks and 161 scripts, covering every modern and historical writing system. The `get_char_info()` function retrieves the complete set of Unicode properties for any character -- its official name, general category, block assignment, script classification, bidirectional behavior, and all 17 encoding representations. This is essential for internationalization (i18n), text processing, and debugging character encoding issues.
+
+```python
+from unicodefyi import get_char_info, search
+
+# Look up full Unicode properties for any character by codepoint
+info = get_char_info(0x00E9)  # Latin small letter e with acute
+print(info.name)           # LATIN SMALL LETTER E WITH ACUTE
+print(info.category_name)  # Lowercase Letter
+print(info.block)          # Latin-1 Supplement
+print(info.script)         # Latn
+print(info.encodings.html_entity)  # &eacute;
+
+# Search Unicode characters by name substring
+results = search("check mark")
+for r in results[:3]:
+    print(f"{r.character}  U+{r.codepoint:04X}  {r.name}")
+# ✓  U+2713  CHECK MARK
+# ✔  U+2714  HEAVY CHECK MARK
+# ☑  U+2611  BALLOT BOX WITH CHECK
+```
+
+Learn more: [Unicode Character Search](https://unicodefyi.com/search/) · [Unicode Block Reference](https://unicodefyi.com/block/)
+
+### 17 Encoding Formats
+
+Developers working across different languages and platforms need characters encoded in platform-specific formats. A single Unicode character can be represented as a UTF-8 byte sequence for web transmission, an HTML entity for markup, a CSS escape for stylesheets, or language-specific literals for Python, JavaScript, Java, Go, Ruby, Rust, and C/C++. The `get_encodings()` function computes all 17 formats in one call.
+
+| Category | Formats | Description |
+|----------|---------|-------------|
+| Unicode | Codepoint, Decimal | `U+00A9`, `169` |
+| HTML | Decimal, Hex, Named Entity | `&#169;`, `&#xA9;`, `&copy;` |
+| CSS | Content escape | `\00A9` |
+| Languages | Python, JavaScript, Java, Go, Ruby, Rust, C/C++ | Language-specific escape sequences |
+| URL | Percent-encoded | `%C2%A9` |
+| Binary | UTF-8, UTF-16 BE, UTF-32 BE | Raw byte representations |
+
+```python
+from unicodefyi import get_encodings
+
+# Compute all 17 encoding representations for any character
+enc = get_encodings("\u2713")  # Check mark
+print(enc.unicode)         # U+2713
+print(enc.html_entity)     # &check;
+print(enc.css)             # \2713
+print(enc.javascript)      # \u{2713}
+print(enc.python)          # \u2713
+print(enc.rust)            # \u{2713}
+print(enc.go)              # \u2713
+print(enc.utf8_bytes)      # e2 9c 93
+```
+
+Learn more: [Unicode Encoding Tools](https://unicodefyi.com/tools/) · [Character Encoding Converter](https://unicodefyi.com/tools/encoding/)
+
+### HTML Entities
+
+HTML named entities provide human-readable aliases for commonly used characters -- `&copy;` instead of `&#xA9;`, `&hearts;` instead of `&#x2665;`. The package includes 92 HTML5 named entity mappings with bidirectional lookup: convert an entity name to its character, or find the named entity for a given codepoint. This covers mathematical symbols, currency signs, typographic characters, Greek letters, and common special characters.
+
+| Entity Group | Examples | Count |
+|-------------|----------|-------|
+| Typographic | `&mdash;`, `&hellip;`, `&laquo;`, `&raquo;` | 20+ |
+| Mathematical | `&times;`, `&divide;`, `&plusmn;`, `&infin;` | 15+ |
+| Currency | `&euro;`, `&pound;`, `&yen;`, `&cent;` | 5 |
+| Greek Letters | `&alpha;`, `&beta;`, `&pi;`, `&omega;` | 24 |
+| Arrows & Symbols | `&larr;`, `&rarr;`, `&hearts;`, `&spades;` | 15+ |
+
+```python
+from unicodefyi import lookup_html_entity, HTML_ENTITIES
+
+# Reverse lookup: resolve an HTML entity name to its character
+char = lookup_html_entity("&euro;")
+print(char)       # (euro sign)
+print(ord(char))  # 8364
+
+# Forward lookup: find the named entity for a codepoint
+entity = HTML_ENTITIES.get(0x00A9)
+print(entity)     # &copy;
+
+# Total named entities in the database
+print(len(HTML_ENTITIES))  # 92
+```
+
+Learn more: [HTML Entity Reference](https://unicodefyi.com/entity/) · [Character Collections](https://unicodefyi.com/collection/)
 
 ## 17 Encoding Formats
 
