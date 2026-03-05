@@ -8,6 +8,10 @@ Pure Python Unicode character toolkit for developers. Compute [17 encoding repre
 
 > **Try the interactive tools at [unicodefyi.com](https://unicodefyi.com/)** -- [Unicode search](https://unicodefyi.com/search/), [Unicode blocks](https://unicodefyi.com/block/), [Unicode scripts](https://unicodefyi.com/script/), and [character collections](https://unicodefyi.com/collection/).
 
+<p align="center">
+  <img src="demo.gif" alt="unicodefyi CLI demo" width="800">
+</p>
+
 ## Install
 
 ```bash
