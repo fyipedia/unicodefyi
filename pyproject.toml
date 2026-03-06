@@ -1,6 +1,6 @@
 [project]
 name = "unicodefyi"
-version = "0.2.1"
+version = "0.2.2"
 description = "Pure Python Unicode character toolkit -- 17 encoding formats, full Unicode properties, 92 HTML entities, character search, CLI, MCP server, and REST API client."
 readme = "README.md"
 license = "MIT"
