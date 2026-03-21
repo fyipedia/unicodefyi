@@ -128,7 +128,7 @@ print(enc.go)              # \u2713
 print(enc.utf8_bytes)      # e2 9c 93
 ```
 
-Learn more: [Unicode Encoding Tools](https://unicodefyi.com/tools/) · [Character Encoding Converter](https://unicodefyi.com/tools/encoding/)
+Learn more: [Character Encoding Converter](encoding/)
 
 ### HTML Entities
 
@@ -158,7 +158,7 @@ print(entity)     # &copy;
 print(len(HTML_ENTITIES))  # 92
 ```
 
-Learn more: [HTML Entity Reference](https://unicodefyi.com/entity/) · [Character Collections](https://unicodefyi.com/collection/)
+Learn more: [Character Collections](https://unicodefyi.com/collection/)
 
 ## 17 Encoding Formats
 
@@ -318,9 +318,8 @@ Full [API documentation](https://unicodefyi.com/developers/) with OpenAPI spec a
 ## Learn More About Unicode
 
 - **Browse**: [Unicode Search](https://unicodefyi.com/search/) · [Unicode Blocks](https://unicodefyi.com/block/) · [Scripts](https://unicodefyi.com/script/)
-- **Tools**: [Character Lookup](https://unicodefyi.com/tools/lookup/) · [Encoding Tool](https://unicodefyi.com/tools/encoding/)
-- **Guides**: [Glossary](https://unicodefyi.com/glossary/) · [Blog](https://unicodefyi.com/blog/)
-- **API**: [REST API Docs](https://unicodefyi.com/developers/) · [OpenAPI Spec](https://unicodefyi.com/api/openapi.json)
+- **Tools**: [Character Lookup](lookup/) · [Encoding Tool](encoding/)
+- **Guides**: [Glossary](https://unicodefyi.com/glossary/) · - **API**: [REST API Docs](https://unicodefyi.com/developers/) · [OpenAPI Spec](https://unicodefyi.com/api/openapi.json)
 
 ## Creative FYI Family
 
