@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.fyipedia/unicodefyi",
+  "description": "Pure Python Unicode character toolkit -- 17 encoding formats, full Unicode properties, 92 HTML",
+  "version": "0.2.3",
+  "repository": {
+    "url": "https://github.com/fyipedia/unicodefyi",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "unicodefyi",
+      "version": "0.2.3",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "--from",
+          "value": "unicodefyi[mcp]"
+        },
+        {
+          "type": "positional",
+          "value": "python"
+        },
+        {
+          "type": "positional",
+          "value": "-m"
+        },
+        {
+          "type": "positional",
+          "value": "unicodefyi.mcp_server"
+        }
+      ]
+    }
+  ]
+}
